@@ -1,0 +1,12 @@
+# Ambiente virtual
+venv/
+*.pyc
+*.pyo
+__pycache__/
+
+# Configurações locais e sensíveis
+*.env
+
+# Arquivos estáticos coletados
+staticfiles/
+media/
