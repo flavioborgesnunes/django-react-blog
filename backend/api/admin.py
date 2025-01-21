@@ -1,6 +1,5 @@
-from django.contrib import admin
-
 from api import models as api_models
+from django.contrib import admin
 
 # class UserAdmin(admin.ModelAdmin):
 #     search_fields = ['full_name', 'username', 'email']
@@ -31,11 +30,18 @@ from api import models as api_models
 # class NotificationAdmin(admin.ModelAdmin):
 #     list_display = ["user", "post", "type", "seen",]
 
+class PostAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ["title"]}
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ["title"]}
+
 
 admin.site.register(api_models.User)
 admin.site.register(api_models.Profile)
-admin.site.register(api_models.Category)
-admin.site.register(api_models.Post)
+admin.site.register(api_models.Category, CategoryAdmin)
+admin.site.register(api_models.Post, PostAdmin)
 admin.site.register(api_models.Comment)
 admin.site.register(api_models.Notification)
 admin.site.register(api_models.Bookmark)

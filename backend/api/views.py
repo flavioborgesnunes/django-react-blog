@@ -3,6 +3,9 @@ import json
 import random
 from datetime import datetime
 
+# Custom Imports
+from api import models as api_models
+from api import serializer as api_serializer
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
@@ -21,10 +24,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
-
-# Custom Imports
-from api import models as api_models
-from api import serializer as api_serializer
 
 
 # This code defines a DRF View class called MyTokenObtainPairView, which inherits from TokenObtainPairView.
