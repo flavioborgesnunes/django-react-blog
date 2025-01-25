@@ -171,7 +171,7 @@ function Dashboard() {
                                                 <div className="col-12">
                                                     <div className="d-flex align-items-center position-relative">
                                                         <div className="avatar avatar-lg flex-shrink-0">
-                                                            <img className="avatar-img" src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} alt="avatar" />
+                                                            {/* <img className="avatar-img" src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} alt="avatar" /> */}
                                                         </div>
                                                         <div className="ms-3">
                                                             <p className="mb-1">

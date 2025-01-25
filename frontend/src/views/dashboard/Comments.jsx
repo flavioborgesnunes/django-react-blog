@@ -61,7 +61,7 @@ function Comments() {
                                         {comments?.map((c, index) => (
                                             <li className="list-group-item p-4 shadow rounded-3 mb-3">
                                                 <div className="d-flex">
-                                                    <img src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="avatar" className="rounded-circle avatar-lg" style={{ width: "70px", height: "70px", borderRadius: "50%", objectFit: "cover" }} />
+                                                    {/* <img src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="avatar" className="rounded-circle avatar-lg" style={{ width: "70px", height: "70px", borderRadius: "50%", objectFit: "cover" }} /> */}
                                                     <div className="ms-3 mt-2">
                                                         <div className="d-flex align-items-center justify-content-between">
                                                             <div>
