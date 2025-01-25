@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import apiInstance from "../../utils/axios";
 import useUserData from "../../plugin/useUserData";
 import Toast from "../../plugin/Toast";
+import Moment from "../../plugin/Moment";
 
 function Notifications() {
     const [noti, setNoti] = useState([]);
@@ -71,9 +72,9 @@ function Notifications() {
                                                                             </p>
                                                                         )}
                                                                     </p>
-                                                                    <span className="small">5 min ago</span>
+                                                                    <span className="small">{Moment(n.date)}</span>
                                                                     <br />
-                                                                    <button onClick={() => handleMarkNotiAsSeen(n.id)} className="btn btn-secondary mt-2">
+                                                                    <button onClick={() => handleMarkNotiAsSeen(n?.id)} className="btn btn-secondary mt-2">
                                                                         <i className="fas fa-check-circle"></i>
                                                                     </button>
                                                                 </div>
