@@ -120,11 +120,13 @@ function Dashboard() {
                                             <>
                                                 <div className="col-12">
                                                     <div className="d-flex position-relative">
-                                                        <img className="w-60 rounded" src={p.image} style={{ width: "100px", height: "110px", objectFit: "cover", borderRadius: "10px" }} alt="product" />
+                                                        <Link to={`/${p.slug}/`}>
+                                                            <img src={p.image} style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "10px" }} alt="" />
+                                                        </Link>
                                                         <div className="ms-3">
-                                                            <a href="#" className="h6 stretched-link text-decoration-none text-dark">
-                                                                {p.title}
-                                                            </a>
+                                                            <Link to={`/${p.slug}/`} className="h6 stretched-link text-decoration-none text-dark">
+                                                                {p?.title}
+                                                            </Link>
                                                             <p className="small mb-0 mt-3">
                                                                 <i className="fas fa-calendar me-2"></i>
                                                                 {moment(p.date).format("DD MMM, YYYY")}
