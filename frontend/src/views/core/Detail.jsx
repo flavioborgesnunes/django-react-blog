@@ -3,11 +3,13 @@ import Header from "../partials/Header";
 import Footer from "../partials/Footer";
 import { Link, useParams } from "react-router-dom";
 import apiInstance from "../../utils/axios";
-import Moment from "../../plugin/Moment"
+import Moment from "../../plugin/Moment";
+import Toast from "../../plugin/Toast";
 
 function Detail() {
     const [post, setPost] = useState([]);
     const [tags, setTags] = useState([]);
+    const [createComment, setCreateComment] = useState({ full_name: "", email: "", comment: "" })
 
     const param = useParams();
 
@@ -22,6 +24,62 @@ function Detail() {
     useEffect(() => {
         fetchPost()
     }, []);
+
+    const handleCreateCommentChange = (event) => {
+        setCreateComment({
+            ...createComment,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    const handleCreateCommentSubmit = async (e) => {
+        e.preventDefault();
+
+        console.log(post.id);
+        console.log(createComment.full_name);
+        console.log(createComment.email);
+        console.log(createComment.comment);
+
+        const jsonData = {
+            post_id: post?.id,
+            name: createComment.full_name,
+            email: createComment.email,
+            comment: createComment.comment,
+        };
+
+        const response = await apiInstance.post(`post/comment-post/`, jsonData);
+        console.log(response);
+        fetchPost();
+        Toast("success", "Comment Posted.", "");
+        setCreateComment({
+            full_name: "",
+            email: "",
+            comment: "",
+        });
+    };
+
+    const handleLikePost = async () => {
+        const json = {
+            user_id: 1,
+            post_id: post?.id
+        };
+        const response = await apiInstance.post(`post/like-post/`, json)
+        console.log(response.data)
+        Toast("success", response.data.message)
+        fetchPost()
+    };
+
+    const handleBookMark = async () => {
+        const json = {
+            user_id: 1,
+            post_id: post?.id,
+        };
+        const response = await apiInstance.post(`post/bookmark-post/`, json)
+        console.log(response.data)
+        Toast("success", response.data.message)
+        fetchPost()
+    };
+
     return (
         <>
             <Header />
@@ -84,6 +142,15 @@ function Detail() {
                                         </li>
                                     ))}
                                 </ul>
+
+                                <button onClick={handleLikePost} className="btn btn-primary">
+                                    <i className="fas fa-thumbs-up me-2 "></i>
+                                    {post?.likes?.length}
+                                </button>
+                                <button onClick={handleBookMark} className="btn btn-danger ms-2">
+                                    <i className="fas fa-bookmark"></i>
+                                </button>
+
                             </div>
                         </div>
                         {/* Left sidebar END */}
@@ -166,7 +233,7 @@ function Detail() {
                             </div>
 
                             <hr /> */}
-                            <div className="d-flex py-4">
+                            {/* <div className="d-flex py-4">
                                 <a href="#">
                                     <div className="avatar avatar-xxl me-4">
                                         <img className="avatar-img rounded-circle" src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/Author.jpg" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} alt="avatar" />
@@ -184,7 +251,7 @@ function Detail() {
                                         </div>
                                     </div>
                                     <p className="my-2">Louis Ferguson is a senior editor for the blogzine and also reports on breaking news based in London. He has written about government, criminal justice, and the role of money in politics since 2015.</p>
-                                    {/* Social icons */}
+                                    Social icons 
                                     <ul className="nav">
                                         <li className="nav-item">
                                             <a className="nav-link ps-0 pe-2 fs-5" href="#">
@@ -203,27 +270,30 @@ function Detail() {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
+                            <hr />
+                            <div className="mt-5">
+                                <h3>{post?.comments?.length} comments</h3>
+                                {post?.comments?.map((c, index) => (
 
-                            <div>
-                                <h3>3 comments</h3>
-                                <div className="my-4 d-flex bg-light p-3 mb-3 rounded">
-                                    <img
-                                        className="avatar avatar-md rounded-circle float-start me-3"
-                                        src="https://img.freepik.com/free-photo/front-portrait-woman-with-beauty-face_186202-6146.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710979200&semt=ais"
-                                        style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "50%" }}
-                                        alt="avatar"
-                                    />
-                                    <div>
-                                        <div className="mb-2">
-                                            <h5 className="m-0">Benny William</h5>
-                                            <span className="me-3 small">June 11, 2023.</span>
+                                    <div className="my-4 d-flex bg-light p-3 mb-3 rounded" key={index}>
+                                        {/* <img
+                                            className="avatar avatar-md rounded-circle float-start me-3"
+                                            src="https://img.freepik.com/free-photo/front-portrait-woman-with-beauty-face_186202-6146.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710979200&semt=ais"
+                                            style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "50%" }}
+                                            alt="avatar"
+                                        /> */}
+                                        <div>
+                                            <div className="mb-2">
+                                                <h5 className="m-0">{c.name}</h5>
+                                                <span className="me-3 small">{Moment(c.date)}</span>
+                                            </div>
+                                            <p className="fw-bold">{c.comment}</p>
                                         </div>
-                                        <p className="fw-bold">Thanks you very much for the post, it really helped. </p>
                                     </div>
-                                </div>
+                                ))}
 
-                                <div className="my-4 d-flex bg-light p-3 mb-3 rounded">
+                                {/* <div className="my-4 d-flex bg-light p-3 mb-3 rounded">
                                     <img
                                         className="avatar avatar-md rounded-circle float-start me-3"
                                         src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
@@ -248,25 +318,25 @@ function Detail() {
                                         </div>
                                         <p className="fw-bold">Amazing blog post, keep it up. </p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             {/* Comments END */}
                             {/* Reply START */}
                             <div className="bg-light p-3 rounded">
                                 <h3 className="fw-bold">Leave a reply</h3>
                                 <small>Your email address will not be published. Required fields are marked *</small>
-                                <form className="row g-3 mt-2">
+                                <form className="row g-3 mt-2" onSubmit={handleCreateCommentSubmit}>
                                     <div className="col-md-6">
                                         <label className="form-label">Name *</label>
-                                        <input type="text" className="form-control" aria-label="First name" />
+                                        <input onChange={handleCreateCommentChange} name="full_name" value={createComment.full_name} type="text" className="form-control" aria-label="First name" />
                                     </div>
                                     <div className="col-md-6">
                                         <label className="form-label">Email *</label>
-                                        <input type="email" className="form-control" />
+                                        <input onChange={handleCreateCommentChange} name="email" value={createComment.email} type="email" className="form-control" />
                                     </div>
                                     <div className="col-12">
                                         <label className="form-label">Write Comment *</label>
-                                        <textarea className="form-control" rows={4} />
+                                        <textarea onChange={handleCreateCommentChange} name="comment" value={createComment.comment} className="form-control" rows={4} />
                                     </div>
                                     <div className="col-12">
                                         <button type="submit" className="btn btn-primary">

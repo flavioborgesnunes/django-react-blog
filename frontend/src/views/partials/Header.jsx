@@ -1,13 +1,17 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../store/auth";
+import logo from "../../img/logo.png"
 
 function Header() {
+    const [isLoggedIn, user] = useAuthStore((state) => [state.isLoggedIn, state.user]);
     return (
         <header className="navbar-dark bg-dark navbar-sticky header-static">
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
-                        <img className="navbar-brand-item dark-mode-item" src="https://i.postimg.cc/ZRNC1mhM/my-main-logo.png" style={{ width: "200px" }} alt="logo" />
+                        <img className="navbar-brand-item dark-mode-item" src={logo} style={{ width: "300px" }} alt="logo" />
                     </Link>
                     <button className="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="h6 d-none d-sm-inline-block text-white">Menu</span>
@@ -90,12 +94,25 @@ function Header() {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <Link to={"/register/"} className="btn btn-success" href="dashboard.html">
-                                    Register <i className="fas fa-user-plus"></i>
-                                </Link>
-                                <Link to={"/login/"} className="btn btn-success ms-2" href="dashboard.html">
-                                    Login <i className="fas fa-sign-in-alt"></i>
-                                </Link>
+                                {isLoggedIn() ? (
+                                    <>
+                                        <Link to={"/dashboard/"} className="btn btn-secondary" href="dashboard.html">
+                                            Dashboard <i className="bi bi-grid-fill"></i>
+                                        </Link>
+                                        <Link to={"/logout/"} className="btn btn-danger ms-2" href="dashboard.html">
+                                            Logout <i className="fas fa-sign-out-alt"></i>
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to={"/register/"} className="btn btn-success" href="dashboard.html">
+                                            Register <i className="fas fa-user-plus"></i>
+                                        </Link>
+                                        <Link to={"/login/"} className="btn btn-success ms-2" href="dashboard.html">
+                                            Login <i className="fas fa-sign-in-alt"></i>
+                                        </Link>
+                                    </>
+                                )}
                             </li>
                         </ul>
                     </div>

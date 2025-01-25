@@ -334,7 +334,7 @@ class DashboardNotificationLists(generics.ListAPIView):
         user_id = self.kwargs['user_id']
         user = api_models.User.objects.get(id=user_id)
 
-        return api_models.Notification.objects.filter(seen=False, user=user)
+        return api_models.Notification.objects.filter(seen=False, user=user).order_by("-id")
 
 
 class DashboardMarkNotiSeenAPIView(APIView):
