@@ -30,7 +30,7 @@ function Index() {
     }, [])
 
     // Pagination
-    const itemsPerPage = 1;
+    const itemsPerPage = 3;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;

@@ -91,7 +91,9 @@ function Detail() {
                                 <i className="small fw-bold " />
                                 Lifestyle
                             </a>
+
                             <h1 className="text-center">{post.title}</h1>
+                            <img style={{ width: "100%", height: "330px", objectFit: "cover", borderRadius: "10px" }} className="mb-4" src={post.image} alt="" />
                         </div>
                     </div>
                 </div>
@@ -104,7 +106,7 @@ function Detail() {
                             <div className="text-start text-lg-center mb-5" data-sticky="" data-margin-top={80} data-sticky-for={991}>
                                 <div className="position-relative">
                                     <div className="avatar avatar-xl">
-                                        <img className="avatar-img" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} src={post?.profile?.image} alt="avatar" />
+                                        <img className="avatar-img" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} src={post?.profile?.image || "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"} alt="avatar" />
                                     </div>
                                     <a href="#" className="h5 fw-bold text-dark text-decoration-none mt-2 mb-0 d-block">
                                         {post?.profile?.full_name}
